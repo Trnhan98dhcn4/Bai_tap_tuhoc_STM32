@@ -102,6 +102,12 @@ void led_control(led_num_t led_num, state_t state)
 		*GPIOD_ODR &= ~(0b1 << led_num);
 	}
 }
+
+char get_button()
+{
+	uint32_t* GPIOA_IDR = (uint32_t*)(GPIOA_BASE_ADDRESS + 0x10);
+	return *GPIOA_IDR & 0b1;
+}
 /* USER CODE END 0 */
 
 /**
@@ -141,9 +147,15 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
+	  led_control(LED_1 , LED_ON);
+	  led_control(LED_2 , LED_ON);
 	  led_control(LED_3 , LED_ON);
+	  led_control(LED_4 , LED_ON);
 	  HAL_Delay(1000);
+	  led_control(LED_1 , LED_OFF);
+	  led_control(LED_2 , LED_OFF);
 	  led_control(LED_3 , LED_OFF);
+	  led_control(LED_4 , LED_OFF);
 	  HAL_Delay(1000);
     /* USER CODE BEGIN 3 */
   }
